@@ -1,7 +1,5 @@
 LOCAL_PATH := $(call my-dir)
 
-include $(LOCAL_PATH)/cflags.mk
-
 libext2_uuid_src_files := \
 	uuid/clear.c \
 	uuid/compare.c \
@@ -14,7 +12,7 @@ libext2_uuid_src_files := \
 	uuid/unparse.c \
 	uuid/uuid_time.c
 
-libext2_uuid_cflags := -O2 -g -W -Wall \
+libext2_uuid_cflags := \
 	-DHAVE_INTTYPES_H \
 	-DHAVE_UNISTD_H \
 	-DHAVE_ERRNO_H \
@@ -38,12 +36,15 @@ libext2_uuid_cflags := -O2 -g -W -Wall \
 	-DHAVE_LINUX_FD_H \
 	-DHAVE_TYPE_SSIZE_T \
 	-DHAVE_SYS_TIME_H \
-        -DHAVE_SYS_PARAM_H \
+    -DHAVE_SYS_PARAM_H \
 	-DHAVE_SYSCONF
 
 include $(CLEAR_VARS)
 
+include $(LOCAL_PATH)/cflags.mk
+
 LOCAL_SRC_FILES := $(libext2_uuid_src_files)
+LOCAL_CFLAGS += $(libext2_uuid_cflags)
 LOCAL_MODULE := libext2_uuid
 LOCAL_MODULE_TAGS := optional
 
